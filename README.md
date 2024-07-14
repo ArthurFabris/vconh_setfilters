@@ -13,4 +13,4 @@ O segundo filtro é um filtro ascii.
 
 Also theres a windows binary built in a qemu kvm windows 10 vm, should work fine.
 
-[WINDOWS 10 BINARY](https://raw.githubusercontent.com/username/vconh_setfilters/blob/main/vconh%20set%20filters%20v1.1.exe)
+[WINDOWS 10 BINARY](https://github.com/ArthurFabris/vconh_setfilters/blob/main/vconh%20set%20filters%20v1.1.exe)
