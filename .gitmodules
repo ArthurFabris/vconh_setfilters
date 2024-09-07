@@ -1,0 +1,3 @@
+[submodule "submodules/yolov10"]
+	path = submodules/yolov10
+	url = https://github.com/ArthurFabris/vconhutils_yolov10.git
