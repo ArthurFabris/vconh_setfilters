@@ -4,6 +4,11 @@ import cv2
 import time
 import numpy as np
 
+#metalicset = '''          ~*=%#&^@oO0D8QMW█'''
+metalicset = '''█WMQ8D0O@&#%=o*^~           '''
+
+ASCII_CHARS = metalicset
+
 def lsd_webcamtoy():
     # Initialize the webcam
     cap = cv2.VideoCapture(0)
@@ -14,8 +19,8 @@ def lsd_webcamtoy():
 
     # Variables for color map and sharpening
     night_vision_map = None  # Initialize the night vision color map
-    sharpness_factor =2.5  # Default sharpness factor
-    blend_alpha = 0.25  # Default blend alpha factor
+    sharpness_factor =3.5  # Default sharpness factor
+    blend_alpha = 2.0  # Default blend alpha factor
 
     # STATE VARIABLES
     alpha_ON        = 1 # usa a variavel blend_alpha como o brilho da imagem
@@ -94,7 +99,6 @@ def lsd_webcamtoy():
 
         # Apply sharpening
         if sharpness_ON == 1:
-
             sharpened_frame = apply_sharpening(night_vision_frame, sharpness_factor)
         else:
             sharpened_frame = night_vision_frame
@@ -115,8 +119,8 @@ def lsd_webcamtoy():
     cv2.destroyAllWindows()
 
 
-def resize_image(image, new_width=150):
-    ASCII_CHARS = "@%#*+=-;, "
+def resize_image(image, new_width=600):
+
     height, width = image.shape
     ratio = height / width / 2  # Adjust aspect ratio as needed
     new_height = int(new_width * ratio)
@@ -124,11 +128,11 @@ def resize_image(image, new_width=150):
     return resized_image
 
 def grayscale_image(image):
-    ASCII_CHARS = "@%#*+=-;, "
+
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 def image_to_ascii(image):
-    ASCII_CHARS = "@%#*+=-;, "
+
     pixels = image.flatten()
     max_pixel_value = max(pixels)
     if max_pixel_value == 0:
@@ -139,7 +143,7 @@ def image_to_ascii(image):
 
 def ascii_filter():
     # ASCII characters in descending order of density
-    ASCII_CHARS = "@%#*+=-;, "
+
     cap = cv2.VideoCapture(0)
     
     while True:
