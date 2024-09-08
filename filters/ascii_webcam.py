@@ -4,8 +4,8 @@ import cv2
 import time
 import numpy as np
 
-#metalicset = '''          ~*=%#&^@oO0D8QMW█'''
-metalicset = '''█WMQ8D0O@&#%=o*^~           '''
+metalicset = '''          ~*=%#&^@oO0D8QMW█'''
+#metalicset = '''█WMQ8D0O@&#%=o*^~           '''
 
 ASCII_CHARS = metalicset
 
@@ -119,7 +119,7 @@ def lsd_webcamtoy():
     cv2.destroyAllWindows()
 
 
-def resize_image(image, new_width=600):
+def resize_image(image, new_width=100):
 
     height, width = image.shape
     ratio = height / width / 2  # Adjust aspect ratio as needed

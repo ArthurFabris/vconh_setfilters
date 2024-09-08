@@ -1,5 +1,6 @@
 import cv2
 import time
+import os
 fps = 1/60
 metalicset = '''█WMQ8D0O@&#%=o*^~           '''
 ascii_char_list = " `'\"-^_:,.~+<>!*il=\\{}[]7?rt1()c/vzxunJYTI3fjLCAoZayXU2Ve5s4wbEd9S8FhPGKpOqkdNHmMBWQ#R0%g$D&6@"
@@ -7,9 +8,16 @@ ascii_char_list = " `'\"-^_:,.~+<>!*il=\\{}[]7?rt1()c/vzxunJYTI3fjLCAoZayXU2Ve5s
 
 ASCII_CHARS = metalicset
 
+def list_accepted_files(file_pool):
+    accepted_extensions = ('.mp4', '.jpg', '.jpeg', '.png')
+    file_list = [file for file in os.listdir(file_pool) if file.lower().endswith(accepted_extensions)]
+    
+    for index, file in enumerate(file_list):
+        print(f"{index + 1}: {file}")
+    
+    return file_list
 
-
-def resize_image(image, new_width=500):
+def resize_image(image, new_width=150):
     height, width = image.shape
     ratio = height / width / 2  # Adjust aspect ratio as needed
     new_height = int(new_width * ratio)
@@ -56,14 +64,34 @@ def ascii_filter(video_path):
     cap.release()
     cv2.destroyAllWindows()
 
-# Call the function with the path to your video file
-ascii_filter('VCONHTAG_L.mp4')
+
 
 
 
 def main():
-    ascii_filter('VCONHTAG_L.mp4')
+    path = os.getcwd()  # Fixed typo
+    file_pool = f"{path}/file-pool/"
+    
+    # List accepted files
+    accepted_files = list_accepted_files(file_pool)
 
+    print("Escolha o numero do arquivo na lista de arquivos ou digite o caminho inteiro do arquivo.\n")
+    user_input = input("> ")
+
+    try:
+        file_index = int(user_input) - 1  # Convert to zero-index
+        if 0 <= file_index < len(accepted_files):
+            selected_file = os.path.join(file_pool, accepted_files[file_index])
+            print(f"Selected file: {selected_file}")
+            ascii_filter(selected_file)
+        else:
+            print("Invalid file number.")
+    except ValueError:
+        if os.path.isfile(user_input):
+            print(f"Selected file: {user_input}")
+            ascii_filter(selected_file)
+        else:
+            print("Invalid file path.")
 
 if __name__ == "__main__":
     main()
