@@ -1,56 +1,58 @@
 import os
+import importlib
 import importlib.util
-import sys
 
-# Step 1: Add the filters directory to sys.path
-filters_path = os.path.join(os.path.dirname(__file__), 'filters')
-if filters_path not in sys.path:
-    sys.path.append(filters_path)
 
-# Step 2: List Python files in the /filters folder
-def list_filters():
-    filter_modules = []
-    
-    for file in os.listdir(filters_path):
-        if file.endswith('.py') and file != '__init__.py':  # Ignore __init__.py
-            module_name = file[:-3]  # Strip the '.py' from the module name
-            filter_modules.append(module_name)
-    
-    return filter_modules
+FILTERS_DIR = './filters'
 
-# Step 3: Dynamically import and load the modules
-def import_module(module_name):
-    spec = importlib.util.find_spec(module_name)
-    if spec is None:
-        print(f"Module {module_name} not found")
+def list_filter_files():
+    """Lists Python files in the filters directory that start with 'FILTER_'."""
+    filter_files = [
+        f for f in os.listdir(FILTERS_DIR)
+        if f.startswith('FILTER_') and f.endswith('.py')
+    ]
+    return filter_files
+
+def display_filters(filter_files):
+    """Displays the available filters for the user to select."""
+    print("Available filters:")
+    for idx, filter_file in enumerate(filter_files):
+        print(f"{idx} = {filter_file.replace('.py', '')}")
+
+def prompt_user_choice(filter_files):
+    """Prompts the user to choose a filter by index."""
+    try:
+        choice = int(input("Choose a filter by number: "))
+        if 0 <= choice < len(filter_files):
+            return filter_files[choice]
+        else:
+            print("Invalid choice. Please choose a valid index.")
+            return None
+    except ValueError:
+        print("Invalid input. Please enter a number.")
         return None
-    
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
-# Step 4: Try to run the main function of the module
-def run_module_main(module):
-    if hasattr(module, 'main') and callable(getattr(module, 'main')):
-        print(f"Running {module.__name__}.main()...")
-        module.main()
-    else:
-        print(f"The module {module.__name__} has no callable main() function.")
+def import_filter(filter_file):
+    """Dynamically imports the selected filter module."""
+    module_name = filter_file.replace('.py', '')
+    spec = importlib.util.spec_from_file_location(module_name, os.path.join(FILTERS_DIR, filter_file))
+    filter_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(filter_module)
+    return filter_module
 
-# Launcher logic to list and load modules
-if __name__ == '__main__':
-    filters = list_filters()
-    
-    print("Efeitos disponíveis:")
-    for f in filters:
-        print(f)
-    
-    # Optionally import a specific module and run its main function
-    chosen_module = input("Enter the module to load: ")
-    if chosen_module in filters:
-        mod = import_module(chosen_module)
-        if mod:
-            print(f"Loaded module: {chosen_module}")
-            run_module_main(mod)  # Run the main function if it exists
-    else:
-        print(f"Module {chosen_module} not found.")
+def main():
+    filter_files = list_filter_files()
+    if not filter_files:
+        print("No filters found in the directory.")
+        return
+
+    display_filters(filter_files)
+    chosen_filter_file = prompt_user_choice(filter_files)
+
+    if chosen_filter_file:
+        print(f"Importing filter: {chosen_filter_file}")
+        filter_module = import_filter(chosen_filter_file)
+        filter_module.main()
+
+if __name__ == "__main__":
+    main()
