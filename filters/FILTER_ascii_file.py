@@ -2,11 +2,13 @@ import cv2
 import time
 import os
 fps = 1/60
-metalicset = '''█WMQ8D0O@&#%=o*^~           '''
+metalicset_inverse = '''█WMQ8D0O@&#%=o*^~           '''
+metalicset =         '''           ~*=%#&^@oO0D8QMW█'''
 ascii_char_list = " `'\"-^_:,.~+<>!*il=\\{}[]7?rt1()c/vzxunJYTI3fjLCAoZayXU2Ve5s4wbEd9S8FhPGKpOqkdNHmMBWQ#R0%g$D&6@"
 
 
 ASCII_CHARS = metalicset
+
 
 def list_accepted_files(file_pool):
     accepted_extensions = ('.mp4', '.jpg', '.jpeg', '.png')
@@ -17,7 +19,7 @@ def list_accepted_files(file_pool):
     
     return file_list
 
-def resize_image(image, new_width=150):
+def resize_image(image, new_width=500):
     height, width = image.shape
     ratio = height / width / 2  # Adjust aspect ratio as needed
     new_height = int(new_width * ratio)
@@ -63,10 +65,6 @@ def ascii_filter(video_path):
 
     cap.release()
     cv2.destroyAllWindows()
-
-
-
-
 
 def main():
     path = os.getcwd()  # Fixed typo

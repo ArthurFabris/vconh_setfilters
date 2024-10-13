@@ -1,5 +1,8 @@
-*.mp4
+﻿*.mp4
 *.jpg
 *.jpeg
 *.png
 /file-pool/*
+/gengine/file-pool/*
+/gengine/__pycache__/*
+/gengine/RUNS/*

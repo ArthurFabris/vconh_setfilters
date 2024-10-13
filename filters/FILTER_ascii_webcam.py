@@ -5,11 +5,11 @@ import time
 import numpy as np
 
 metalicset = '''          ~*=%#&^@oO0D8QMW█'''
-#metalicset = '''█WMQ8D0O@&#%=o*^~           '''
+metalicset = '''█WMQ8D0O@&#%=o*^~          '''
 
 ASCII_CHARS = metalicset
 
-def resize_image(image, new_width=100):
+def resize_image(image, new_width=600):
 
     height, width = image.shape
     ratio = height / width / 2  # Adjust aspect ratio as needed

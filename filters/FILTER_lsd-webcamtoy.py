@@ -1,3 +1,5 @@
+import cv2
+import numpy as np
 def lsd_webcamtoy():
     # Initialize the webcam
     cap = cv2.VideoCapture(0)
@@ -14,7 +16,7 @@ def lsd_webcamtoy():
     # STATE VARIABLES
     alpha_ON        = 1 # usa a variavel blend_alpha como o brilho da imagem
     sharpness_ON    = 1 # filtro de sharpen
-    nightvision_ON  = 1 # filtro da visão noturna
+    nightvision_ON  = 0 # filtro da visão noturna
     lsd_effect_ON   = 1 # efeito lsd do webcamtoy
     invertaxis_ON   = 1 # inverte a orientação da webcam tipo se olhar no espelho sla
 
@@ -106,3 +108,10 @@ def lsd_webcamtoy():
     # Release the webcam and close windows
     cap.release()
     cv2.destroyAllWindows()
+
+
+def main():
+    lsd_webcamtoy()
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,8 @@
+{
+    "font_path": "hacknerdfont-mono.ttf",
+    "font_size": 10,
+    "text_color": [0, 255, 0],
+    "scale": 1,
+    "background_color": [0, 0, 0],
+    "nobg": 0
+}
